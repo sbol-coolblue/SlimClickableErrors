@@ -64,7 +64,7 @@ class PhpErrorHandler extends \Slim\Handlers\PhpError
 
         if ($file = $localFile = $error->getFile()) {
             if ($this->localPath !== null) {
-                $localFile = str_replace($this->localPath, $this->serverPath, $file);
+                $localFile = str_replace($this->serverPath, $this->localPath, $file);
             }
             $line = $error->getLine() ?? 0;
             $url = sprintf($this->protocol, $localFile, $line);

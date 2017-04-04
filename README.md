@@ -14,7 +14,7 @@ In your index.php or bootstrap, between initializing and running the app, add th
 ```php
 $c = $app->getContainer();
 $c['errorHandler'] = function(Interop\Container\ContainerInterface $container) {
-    return new \SanderBol\ClickableError\ErrorHandler(
+    return new \SanderBol\SlimClickableError\ErrorHandler(
         $container->get('settings')['displayErrorDetails'],        
         '/Users/sanderbol/Projects/my-project', // Directory on your host OS. Optional.
         '/var/www/html/' // Directory on the virtualized filesystem your app runs on. Optional.
@@ -22,7 +22,7 @@ $c['errorHandler'] = function(Interop\Container\ContainerInterface $container) {
 };
 
 $c['phpErrorHandler'] = function(Interop\Container\ContainerInterface $container) {
-    return new \SanderBol\ClickableError\PhpErrorHandler(
+    return new \SanderBol\SlimClickableError\PhpErrorHandler(
         $container->get('settings')['displayErrorDetails'],        
         '/Users/sanderbol/Projects/my-project', // Directory on your host OS. Optional.
         '/var/www/html/' // Directory on the virtualized filesystem your app runs on. Optional.

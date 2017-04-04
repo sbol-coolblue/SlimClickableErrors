@@ -62,7 +62,7 @@ class ErrorHandler extends \Slim\Handlers\Error
 
         if ($file = $localFile = $exception->getFile()) {
             if ($this->localPath !== null) {
-                $localFile = str_replace($this->localPath, $this->serverPath, $file);
+                $localFile = str_replace($this->serverPath, $this->localPath, $file);
             }
             $line = $exception->getLine() ?? 0;
             $url = sprintf($this->protocol, $localFile, $line);

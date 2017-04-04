@@ -16,6 +16,5 @@
   },
   "require-dev": {
     "slim/slim": "^3.0"
-  },
-  "version": "1.1"
+  }
 }

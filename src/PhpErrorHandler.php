@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace SanderBol\SlimClickableError;
 
-class ErrorHandler extends \Slim\Handlers\PhpError
+class PhpErrorHandler extends \Slim\Handlers\PhpError
 {
     /**
      * @var string
@@ -21,19 +21,19 @@ class ErrorHandler extends \Slim\Handlers\PhpError
     private $serverPath;
 
     /**
-     * @param string $localPath
-     * @param string $serverPath
-     * @param bool $displayErrorDetails
+     * @param string $localPath Path to project on your development machine.
+     * @param string $serverPath Path to project on server, assumes the project lives one dir above the document root.
+     * @param bool $displayErrorDetails @see parent::__construct()
      */
     public function __construct(
-        string $localPath,
-        bool $displayErrorDetails = false,
-        string $serverPath = null
+        $displayErrorDetails = false,
+        $localPath = null,
+        $serverPath = null
     ) {
         parent::__construct($displayErrorDetails);
 
         $this->localPath = $localPath;
-        $this->serverPath = $serverPath ?? $_SERVER['DOCUMENT_ROOT'];
+        $this->serverPath = $serverPath ?? realpath($_SERVER['DOCUMENT_ROOT'] . '/..');
     }
 
     /**
@@ -62,8 +62,10 @@ class ErrorHandler extends \Slim\Handlers\PhpError
     {
         $html = parent::renderHtmlError($error);
 
-        if ($file = $error->getFile()) {
-            $localFile = str_replace($this->localPath, $this->serverPath, $file);
+        if ($file = $localFile = $error->getFile()) {
+            if ($this->localPath !== null) {
+                $localFile = str_replace($this->localPath, $this->serverPath, $file);
+            }
             $line = $error->getLine() ?? 0;
             $url = sprintf($this->protocol, $localFile, $line);
             $link = sprintf('<a href="%s">%s</a>', $url, $file);

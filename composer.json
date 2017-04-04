@@ -1,0 +1,21 @@
+{
+  "name": "sbol-coolblue/slim-clickable-errors",
+  "description": "Extended error handling for the Slim3 Framework to provide IDE-integration for errors, allowing you to jump right to the problem.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sander Bol",
+      "email": "s.bol@coolblue.nl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SanderBol\\SlimClickableError\\": "src/"
+    }
+  },
+  "require-dev": {
+    "slim/slim": "^3.0"
+  },
+  "version": "1.1"
+}

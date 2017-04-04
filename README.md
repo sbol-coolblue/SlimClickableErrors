@@ -2,12 +2,14 @@
 Extended error handling for the Slim3 Framework to provide IDE-integration for errors, allowing you to jump right to the problem.
 
 ## How does it work?
-If your Slim application is configured to display full errors, these error handlers will replace the filename with a hyperlink to open the file in PHPStorm directly.
+If your Slim application is configured to display error details, these error handlers will replace the filename with a hyperlink to open the file in PHPStorm directly, at the right line.
 
-While developing our apps often run on a different (virtualized) environment (`/var/www/html/public/index.php` on a Vagrant VM, for example), the error handlers allow you to specify which directories on your development environment the links should be pointing to (such as `/Users/sanderbol/Projects/my-project/public/index.php` on my Macbook)
+## Assumptions
+- If you do do not provide a "local path" (ie. the path to the code on your development machine) we will assume that your code lives on a filesystem directly accessible by PHPStorm. The path of the file as reported by PHP will be passed directly to PHPStorm.
+- If you do not provide a "server path" (ie. the path on the server where the code lives), we'll assume the serverside root matching the local path is the directory above the Document Root reported by your server.
 
 ## Usage
-In your index.php file, after initializing the app, add the following:
+In your index.php or bootstrap, between initializing and running the app, add the following:
 
 ```php
 $c = $app->getContainer();
